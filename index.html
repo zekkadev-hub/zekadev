@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zeka Dev — Desenvolvimento de Sites e Design Gráfico</title>
+<meta name="description" content="Zeka Dev: sites modernos, rápidos e profissionais e design gráfico sob medida para empresas e empreendedores.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0B0B;
+    --bg-blue:#0F172A;
+    --purple:#7C3AED;
+    --purple-light:#A78BFA;
+    --blue-accent:#38BDF8;
+    --white:#F5F5F7;
+    --muted:#9CA3AF;
+    --glass:rgba(255,255,255,0.05);
+    --glass-border:rgba(255,255,255,0.09);
+    --radius-lg:22px;
+    --radius-md:16px;
+    --radius-sm:10px;
+    --ease:cubic-bezier(.22,.9,.35,1);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:
+      radial-gradient(1200px 600px at 15% -10%, rgba(124,58,237,0.20), transparent 60%),
+      radial-gradient(1000px 700px at 100% 10%, rgba(15,23,42,0.9), transparent 55%),
+      var(--bg);
+    color:var(--white);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+    line-height:1.5;
+  }
+  h1,h2,h3,.brand{font-family:'Sora',sans-serif;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  ::selection{background:var(--purple);color:#fff;}
+
+  :focus-visible{
+    outline:2px solid var(--blue-accent);
+    outline-offset:3px;
+    border-radius:6px;
+  }
+
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+
+  #particle-bg{
+    position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    background:rgba(11,11,11,0.55);
+    border-bottom:1px solid var(--glass-border);
+  }
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 24px;max-width:1180px;margin:0 auto;
+  }
+  .logo{font-weight:800;font-size:1.15rem;letter-spacing:.02em;}
+  .logo span{color:var(--purple-light);}
+  .nav-links{display:flex;gap:28px;font-size:.92rem;color:var(--muted);}
+  .nav-links a{transition:color .25s var(--ease);}
+  .nav-links a:hover{color:var(--white);}
+  .nav-cta{
+    display:none;
+  }
+  @media(min-width:760px){
+    .nav-cta{display:inline-flex;}
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:14px 26px;border-radius:100px;
+    font-weight:600;font-size:.95rem;
+    border:1px solid transparent;cursor:pointer;
+    transition:transform .25s var(--ease), box-shadow .25s var(--ease), filter .25s var(--ease);
+    white-space:nowrap;
+  }
+  .btn:hover{transform:translateY(-2px) scale(1.02);}
+  .btn:active{transform:translateY(0) scale(.99);}
+  .btn-primary{
+    background:linear-gradient(135deg,#22c55e,#16a34a);
+    color:#fff;
+    box-shadow:0 8px 24px rgba(34,197,94,.25);
+  }
+  .btn-primary:hover{box-shadow:0 10px 32px rgba(34,197,94,.4), 0 0 0 1px rgba(124,58,237,.3);}
+  .btn-ghost{
+    background:var(--glass);
+    border-color:var(--glass-border);
+    color:var(--white);
+  }
+  .btn-ghost:hover{
+    box-shadow:0 0 24px rgba(124,58,237,.35), 0 0 24px rgba(56,189,248,.15);
+    border-color:rgba(124,58,237,.5);
+  }
+  .btn-lg{padding:17px 34px;font-size:1rem;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;z-index:1;
+    padding:120px 24px 90px;
+    max-width:1180px;margin:0 auto;
+    display:grid;grid-template-columns:1fr;gap:56px;align-items:center;
+  }
+  @media(min-width:960px){
+    .hero{grid-template-columns:1.05fr .95fr;padding-top:150px;}
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:.8rem;color:var(--purple-light);
+    background:rgba(124,58,237,.12);
+    border:1px solid rgba(124,58,237,.3);
+    padding:6px 14px;border-radius:100px;margin-bottom:22px;
+  }
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:#22c55e;box-shadow:0 0 8px #22c55e;}
+
+  .hero h1{
+    font-size:clamp(2.3rem,5vw,3.6rem);
+    font-weight:800;line-height:1.08;letter-spacing:-.02em;
+    margin-bottom:18px;
+  }
+  .hero h1 .grad{
+    background:linear-gradient(100deg,var(--purple-light),var(--blue-accent));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero h2{
+    font-size:clamp(1.05rem,2vw,1.3rem);
+    font-weight:500;color:#D6D9E2;margin-bottom:16px;
+  }
+  .hero p.desc{
+    color:var(--muted);font-size:1.02rem;max-width:52ch;margin-bottom:34px;
+  }
+  .hero-actions{display:flex;flex-wrap:wrap;gap:16px;}
+
+  /* Hero visual: floating glass device mockup */
+  .device{
+    position:relative;border-radius:var(--radius-lg);
+    background:linear-gradient(160deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
+    border:1px solid var(--glass-border);
+    backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    box-shadow:0 30px 80px rgba(0,0,0,.55), 0 0 60px rgba(124,58,237,.12);
+    padding:18px;
+    animation:floaty 6s ease-in-out infinite;
+  }
+  @keyframes floaty{
+    0%,100%{transform:translateY(0px);}
+    50%{transform:translateY(-14px);}
+  }
+  .device-bar{display:flex;gap:6px;margin-bottom:14px;padding:0 4px;}
+  .device-bar span{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.15);}
+  .device-screen{
+    border-radius:var(--radius-md);
+    background:linear-gradient(160deg,#12081F,#0B0F1E);
+    padding:22px;min-height:260px;
+    border:1px solid rgba(124,58,237,.2);
+    position:relative;overflow:hidden;
+  }
+  .device-screen::before{
+    content:'';position:absolute;inset:0;
+    background:radial-gradient(400px 180px at 80% 0%, rgba(124,58,237,.28), transparent 60%);
+  }
+  .typewriter{
+    font-family:'JetBrains Mono',monospace;font-size:.88rem;color:#C4B5FD;
+    position:relative;z-index:1;
+  }
+  .typewriter .caret{
+    display:inline-block;width:8px;height:1em;background:var(--blue-accent);
+    vertical-align:-2px;margin-left:2px;animation:blink 1s step-start infinite;
+  }
+  @keyframes blink{50%{opacity:0;}}
+  .typewriter .prompt{color:#38BDF8;}
+
+  .device-tags{position:relative;z-index:1;display:flex;gap:8px;flex-wrap:wrap;margin-top:22px;}
+  .tag{
+    font-size:.72rem;padding:5px 11px;border-radius:100px;
+    background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:var(--muted);
+  }
+
+  /* ---------- Reveal animation ---------- */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s var(--ease), transform .7s var(--ease);}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  /* ---------- Sections ---------- */
+  section{position:relative;z-index:1;padding:100px 24px;}
+  .section-head{max-width:640px;margin:0 auto 56px;text-align:center;}
+  .section-head .eyebrow{margin-bottom:14px;}
+  .section-head h2{font-size:clamp(1.8rem,3.4vw,2.4rem);font-weight:800;letter-spacing:-.01em;margin-bottom:12px;}
+  .section-head p{color:var(--muted);font-size:1.02rem;}
+
+  /* ---------- Services ---------- */
+  .services-grid{
+    max-width:1180px;margin:0 auto;
+    display:grid;grid-template-columns:1fr;gap:24px;
+  }
+  @media(min-width:800px){
+    .services-grid{grid-template-columns:1fr 1fr;}
+  }
+  .service-card{
+    border-radius:var(--radius-lg);
+    background:linear-gradient(160deg, rgba(255,255,255,.045), rgba(255,255,255,.015));
+    border:1px solid var(--glass-border);
+    padding:34px;
+    box-shadow:0 20px 50px rgba(0,0,0,.35);
+    transition:transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s var(--ease);
+  }
+  .service-card:hover{
+    transform:translateY(-6px);
+    border-color:rgba(124,58,237,.4);
+    box-shadow:0 24px 60px rgba(0,0,0,.45), 0 0 40px rgba(124,58,237,.18);
+  }
+  .service-icon{
+    width:52px;height:52px;border-radius:14px;
+    display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg, rgba(124,58,237,.25), rgba(56,189,248,.15));
+    font-size:1.5rem;margin-bottom:18px;
+  }
+  .service-card h3{font-size:1.3rem;font-weight:700;margin-bottom:16px;}
+  .service-card ul{list-style:none;display:flex;flex-direction:column;gap:11px;}
+  .service-card li{
+    display:flex;align-items:flex-start;gap:10px;
+    color:#D1D5DB;font-size:.94rem;
+  }
+  .service-card li::before{
+    content:'';flex:0 0 6px;width:6px;height:6px;border-radius:50%;
+    margin-top:7px;background:linear-gradient(135deg,var(--purple-light),var(--blue-accent));
+  }
+
+  /* ---------- Plans ---------- */
+  .plans-grid{
+    max-width:1180px;margin:0 auto;
+    display:grid;grid-template-columns:1fr;gap:24px;
+  }
+  @media(min-width:900px){
+    .plans-grid{grid-template-columns:repeat(3,1fr);align-items:stretch;}
+  }
+  .plan-card{
+    border-radius:var(--radius-lg);
+    background:linear-gradient(160deg, rgba(255,255,255,.045), rgba(255,255,255,.015));
+    border:1px solid var(--glass-border);
+    padding:36px 30px;display:flex;flex-direction:column;
+    transition:transform .3s var(--ease), box-shadow .3s var(--ease);
+    position:relative;
+  }
+  .plan-card:hover{transform:translateY(-6px);}
+  .plan-card.featured{
+    position:relative;
+    border:1px solid transparent;
+    background:
+      linear-gradient(160deg, rgba(124,58,237,.14), rgba(15,23,42,.55)) padding-box,
+      linear-gradient(135deg, var(--purple-light), var(--blue-accent)) border-box;
+    box-shadow:0 30px 70px rgba(124,58,237,.22), 0 0 40px rgba(56,189,248,.10);
+  }
+  .plan-card.featured::after{
+    content:'';
+    position:absolute;inset:-1px;border-radius:inherit;
+    padding:1px;
+    background:linear-gradient(135deg, var(--purple-light), var(--blue-accent));
+    opacity:.55;filter:blur(6px);
+    -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;mask-composite:exclude;
+    z-index:-1;pointer-events:none;
+  }
+  @media(min-width:900px){
+    .plan-card.featured{transform:scale(1.04);}
+    .plan-card.featured:hover{transform:scale(1.04) translateY(-6px);}
+  }
+  .plan-name{font-size:1.05rem;color:var(--muted);font-weight:600;margin-bottom:6px;}
+  .plan-price{font-size:2.4rem;font-weight:800;margin-bottom:6px;}
+  .plan-price span{font-size:1rem;color:var(--muted);font-weight:500;}
+  .plan-sub{color:var(--muted);font-size:.9rem;margin-bottom:26px;min-height:2.2em;}
+  .plan-card ul{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:30px;flex:1;}
+  .plan-card li{display:flex;gap:10px;font-size:.93rem;color:#D1D5DB;align-items:flex-start;}
+  .plan-card li .check{color:#22c55e;flex:0 0 auto;}
+  .plan-card .btn{justify-content:center;width:100%;}
+
+  /* ---------- Diferenciais ---------- */
+  .diff-grid{
+    max-width:1180px;margin:0 auto;
+    display:grid;grid-template-columns:repeat(2,1fr);gap:18px;
+  }
+  @media(min-width:700px){.diff-grid{grid-template-columns:repeat(3,1fr);}}
+  @media(min-width:1000px){.diff-grid{grid-template-columns:repeat(6,1fr);}}
+  .diff-card{
+    border-radius:var(--radius-md);
+    background:var(--glass);border:1px solid var(--glass-border);
+    padding:24px 16px;text-align:center;
+    transition:transform .3s var(--ease), border-color .3s var(--ease), box-shadow .3s var(--ease);
+  }
+  .diff-card:hover{
+    transform:translateY(-5px);
+    border-color:rgba(56,189,248,.4);
+    box-shadow:0 16px 40px rgba(56,189,248,.12);
+  }
+  .diff-card .ic{font-size:1.6rem;margin-bottom:10px;}
+  .diff-card p{font-size:.85rem;color:#D1D5DB;font-weight:500;}
+
+  /* ---------- Final CTA ---------- */
+  .final-cta{
+    max-width:1180px;margin:0 auto;
+    border-radius:32px;padding:80px 32px;text-align:center;
+    background:
+      radial-gradient(600px 300px at 30% 0%, rgba(124,58,237,.35), transparent 60%),
+      radial-gradient(600px 300px at 80% 100%, rgba(56,189,248,.18), transparent 60%),
+      linear-gradient(160deg,#150B2E,#0B0F1E);
+    border:1px solid rgba(124,58,237,.25);
+    box-shadow:0 40px 100px rgba(0,0,0,.5);
+  }
+  .final-cta h2{font-size:clamp(1.9rem,4vw,2.7rem);font-weight:800;margin-bottom:16px;letter-spacing:-.02em;}
+  .final-cta p{color:var(--muted);font-size:1.05rem;margin-bottom:36px;}
+
+  /* ---------- Footer ---------- */
+  footer{
+    position:relative;z-index:1;
+    border-top:1px solid var(--glass-border);
+    padding:52px 24px 32px;
+  }
+  .footer-inner{
+    max-width:1180px;margin:0 auto;
+    display:flex;flex-direction:column;gap:22px;
+    align-items:center;text-align:center;
+  }
+  @media(min-width:700px){
+    .footer-inner{flex-direction:row;justify-content:space-between;text-align:left;}
+  }
+  .footer-brand{font-size:1.15rem;font-weight:800;}
+  .footer-brand span{color:var(--purple-light);}
+  .footer-sub{color:var(--muted);font-size:.9rem;margin-top:4px;}
+  .footer-wa{
+    display:flex;align-items:center;gap:8px;color:#D1D5DB;font-size:.92rem;
+    transition:color .25s var(--ease);
+  }
+  .footer-wa:hover{color:var(--white);}
+  .footer-actions{
+    display:flex;flex-wrap:wrap;align-items:center;gap:18px;
+  }
+  .btn-instagram{
+    background:linear-gradient(135deg, var(--purple), #5B21B6);
+    color:#fff;padding:11px 20px;font-size:.9rem;
+    box-shadow:0 8px 22px rgba(124,58,237,.3);
+  }
+  .btn-instagram:hover{
+    box-shadow:0 10px 30px rgba(124,58,237,.5), 0 0 20px rgba(56,189,248,.15);
+  }
+  .footer-fine{
+    color:#6B7280;font-size:.78rem;text-align:center;margin-top:26px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important;}
+    .reveal{opacity:1;transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<canvas id="particle-bg" aria-hidden="true"></canvas>
+<div id="app"></div>
+
+<script>
+/* ============================================================
+   Zeka Dev — site 100% renderizado em JavaScript
+   Todo o conteúdo abaixo vive em DATA e é montado no DOM
+   pela função render(). Nada de HTML estático no <body>.
+============================================================ */
+
+const WA_NUMBER = "5571989320785";
+const WA_MSG = encodeURIComponent("Olá! Vim pelo site da Zeka Dev e gostaria de fazer um orçamento.");
+const WA_URL = `https://wa.me/${WA_NUMBER}?text=${WA_MSG}`;
+
+const WA_ICON = `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1.1 2.8 1.2 3c.1.2 2.2 3.3 5.2 4.6.7.3 1.3.5 1.8.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.3c1.4.8 3.1 1.2 4.8 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3.1.8.8-3-.2-.3C4 14.9 3.6 13.5 3.6 12c0-4.6 3.8-8.4 8.4-8.4s8.4 3.8 8.4 8.4-3.8 8.2-8.4 8.2z"/></svg>`;
+
+const IG_ICON = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.3" stroke="currentColor" stroke-width="1.8"/><circle cx="17.4" cy="6.6" r="1.15" fill="currentColor"/></svg>`;
+
+// ---------- Todo o conteúdo do site vive aqui ----------
+const DATA = {
+  brand: { name: "Zeka", suffix: "Dev" },
+  nav: [
+    { label: "Serviços", href: "#servicos" },
+    { label: "Planos", href: "#planos" },
+    { label: "Diferenciais", href: "#diferenciais" }
+  ],
+  hero: {
+    eyebrow: "Sites &amp; Design sob medida",
+    titleHTML: 'Transformamos ideias em <span class="grad">sites modernos</span> e design que vende',
+    subtitle: "Desenvolvimento de Sites Profissionais e Design Gráfico",
+    desc: "Transformo ideias em sites modernos, rápidos e profissionais para ajudar empresas e empreendedores a crescerem na internet.",
+    prompt: "zeka@dev",
+    tags: ["HTML5", "CSS3", "JavaScript", "Python", "Design Gráfico", "Responsivo", "Deploy rápido"]
+  },
+  services: [
+    {
+      icon: "💻",
+      title: "Desenvolvimento Web",
+      items: ["Landing Pages", "Sites Institucionais", "Portfólios", "Sites para pequenos negócios", "Hospedagem gratuita no GitHub Pages", "Site responsivo", "Otimização de desempenho"]
+    },
+    {
+      icon: "🎨",
+      title: "Design Gráfico",
+      items: ["Camisas personalizadas", "Canecas personalizadas", "Adesivos", "Panfletos", "Cartazes", "Cardápios para restaurantes e lanchonetes", "Design de embalagens de produtos", "Cartões de visita"]
+    }
+  ],
+  plans: [
+    {
+      name: "Design Gráfico", price: "R$ 65",
+      sub: "Peças gráficas profissionais para o seu negócio.",
+      items: ["Camisas personalizadas", "Canecas personalizadas", "Adesivos", "Panfletos", "Cartazes", "Cardápios para restaurantes e lanchonetes", "Design de embalagens de produtos", "Cartões de visita"],
+      cta: "Escolher Design Gráfico", featured: false
+    },
+    {
+      name: "Site Profissional", price: "R$ 200",
+      sub: "Para quem quer se destacar de verdade.",
+      items: ["Tudo do Site Completo", "Design Premium", "Animações avançadas", "Otimização de velocidade", "Integração com redes sociais", "Maior personalização", "Suporte após entrega", "Ajustes iniciais gratuitos"],
+      cta: "Escolher Site Profissional", featured: true
+    },
+    {
+      name: "Site Completo", price: "R$ 150",
+      sub: "O equilíbrio ideal entre conteúdo e apresentação.",
+      items: ["Landing Page com até 7 seções", "Design responsivo", "Botão para WhatsApp", "Hospedagem gratuita", "Galeria de imagens", "Formulário de contato", "SEO básico", "Melhor organização do conteúdo", "Mais animações", "Design personalizado"],
+      cta: "Escolher Site Completo", featured: false
+    }
+  ],
+  diffs: [
+    { icon: "⚡", label: "Site rápido" },
+    { icon: "📱", label: "100% Responsivo" },
+    { icon: "🎨", label: "Design moderno" },
+    { icon: "🔒", label: "Hospedagem gratuita" },
+    { icon: "💬", label: "Atendimento rápido" },
+    { icon: "🚀", label: "Desenvolvimento personalizado" }
+  ],
+  finalCta: {
+    title: "Vamos tirar sua ideia do papel?",
+    text: "Entre em contato agora mesmo e solicite um orçamento sem compromisso.",
+    button: "Falar no WhatsApp"
+  },
+  footer: {
+    sub: "Desenvolvimento de Sites e Design Gráfico",
+    instagram: "https://www.instagram.com/zekka.dev?igsh=NHhjbmw3aG96MDFh",
+    fine: "© 2026 Zeka Dev. Todos os direitos reservados."
+  }
+};
+
+// ---------- Componentes (funções que devolvem HTML) ----------
+function renderHeader(){
+  const links = DATA.nav.map(n => `<a href="${n.href}">${n.label}</a>`).join('');
+  return `
+    <header>
+      <nav class="nav">
+        <div class="logo">${DATA.brand.name}<span>${DATA.brand.suffix}</span></div>
+        <div class="nav-links">${links}</div>
+      </nav>
+    </header>
+  `;
+}
+
+function renderHero(){
+  const h = DATA.hero;
+  const tags = h.tags.map(t => `<span class="tag">${t}</span>`).join('');
+  return `
+    <section class="hero">
+      <div>
+        <span class="eyebrow"><span class="dot"></span> ${h.eyebrow}</span>
+        <h1>${h.titleHTML}</h1>
+        <h2>${h.subtitle}</h2>
+        <p class="desc">${h.desc}</p>
+      </div>
+      <div class="device reveal">
+        <div class="device-bar"><span></span><span></span><span></span></div>
+        <div class="device-screen">
+          <div class="typewriter" id="typewriter"><span class="prompt">${h.prompt}</span>:~$ <span id="tw-text"></span><span class="caret"></span></div>
+          <div class="device-tags">${tags}</div>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function renderServices(){
+  const cards = DATA.services.map(s => `
+    <div class="service-card reveal">
+      <div class="service-icon">${s.icon}</div>
+      <h3>${s.title}</h3>
+      <ul>${s.items.map(i => `<li>${i}</li>`).join('')}</ul>
+    </div>
+  `).join('');
+  return `
+    <section id="servicos">
+      <div class="section-head reveal">
+        <span class="eyebrow">O que eu faço</span>
+        <h2>Serviços</h2>
+        <p>Do código à identidade visual, tudo pensado para o seu negócio crescer.</p>
+      </div>
+      <div class="services-grid">${cards}</div>
+    </section>
+  `;
+}
+
+function renderPlans(){
+  const cards = DATA.plans.map(p => `
+    <div class="plan-card ${p.featured ? 'featured' : ''} reveal">
+      <div class="plan-name">${p.name}</div>
+      <div class="plan-price">${p.price}</div>
+      <div class="plan-sub">${p.sub}</div>
+      <ul>${p.items.map(i => `<li><span class="check">✔</span> ${i}</li>`).join('')}</ul>
+      <a class="btn ${p.featured ? 'btn-primary' : 'btn-ghost'} wa-link" href="${WA_URL}" target="_blank" rel="noopener">${p.cta}</a>
+    </div>
+  `).join('');
+  return `
+    <section id="planos">
+      <div class="section-head reveal">
+        <span class="eyebrow">Investimento</span>
+        <h2>Planos</h2>
+        <p>Escolha o plano ideal para o momento do seu negócio.</p>
+      </div>
+      <div class="plans-grid">${cards}</div>
+    </section>
+  `;
+}
+
+function renderDiffs(){
+  const cards = DATA.diffs.map(d => `
+    <div class="diff-card reveal"><div class="ic">${d.icon}</div><p>${d.label}</p></div>
+  `).join('');
+  return `
+    <section id="diferenciais">
+      <div class="section-head reveal">
+        <span class="eyebrow">Por que Zeka Dev</span>
+        <h2>Diferenciais</h2>
+      </div>
+      <div class="diff-grid">${cards}</div>
+    </section>
+  `;
+}
+
+function renderFinalCta(){
+  const c = DATA.finalCta;
+  return `
+    <section id="contato">
+      <div class="final-cta reveal">
+        <h2>${c.title}</h2>
+        <p>${c.text}</p>
+        <a class="btn btn-primary btn-lg wa-link" href="${WA_URL}" target="_blank" rel="noopener">${WA_ICON} ${c.button}</a>
+      </div>
+    </section>
+  `;
+}
+
+function renderFooter(){
+  const f = DATA.footer;
+  return `
+    <footer>
+      <div class="footer-inner">
+        <div>
+          <div class="footer-brand">${DATA.brand.name}<span>${DATA.brand.suffix}</span></div>
+          <div class="footer-sub">${f.sub}</div>
+        </div>
+        <div class="footer-actions">
+          <a class="footer-wa wa-link" href="${WA_URL}" target="_blank" rel="noopener">${WA_ICON} Falar no WhatsApp</a>
+          <a class="btn btn-instagram" href="${f.instagram}" target="_blank" rel="noopener" aria-label="Instagram da Zeka Dev">${IG_ICON} Instagram</a>
+        </div>
+      </div>
+      <div class="footer-fine">${f.fine}</div>
+    </footer>
+  `;
+}
+
+function render(){
+  const app = document.getElementById('app');
+  app.innerHTML =
+    renderHeader() +
+    `<main>${renderHero()}${renderServices()}${renderPlans()}${renderDiffs()}${renderFinalCta()}</main>` +
+    renderFooter();
+}
+
+render();
+
+// ---------- Interações (executadas após a montagem do DOM) ----------
+
+// Reveal on scroll
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('in');
+      io.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+revealEls.forEach(el => io.observe(el));
+
+// Typewriter effect
+const phrases = [
+  "npx create-site --client=\"seu-negocio\"",
+  "design.aplicar(identidade-visual)",
+  "deploy --status=\"online em minutos\""
+];
+const twEl = document.getElementById('tw-text');
+let pIndex = 0, cIndex = 0, deleting = false;
+function typeLoop(){
+  const current = phrases[pIndex];
+  if(!deleting){
+    cIndex++;
+    twEl.textContent = current.slice(0, cIndex);
+    if(cIndex === current.length){
+      deleting = true;
+      setTimeout(typeLoop, 1400);
+      return;
+    }
+  } else {
+    cIndex--;
+    twEl.textContent = current.slice(0, cIndex);
+    if(cIndex === 0){
+      deleting = false;
+      pIndex = (pIndex + 1) % phrases.length;
+    }
+  }
+  setTimeout(typeLoop, deleting ? 28 : 42);
+}
+typeLoop();
+
+// Lightweight particle background
+const canvas = document.getElementById('particle-bg');
+const ctx = canvas.getContext('2d');
+let particles = [];
+const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function resize(){
+  canvas.width = window.innerWidth;
+  canvas.height = document.body.scrollHeight;
+}
+function initParticles(){
+  const count = Math.min(60, Math.floor(window.innerWidth / 22));
+  particles = Array.from({length: count}, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 1.6 + 0.4,
+    vy: Math.random() * 0.15 + 0.03,
+    vx: (Math.random() - 0.5) * 0.08,
+    hue: Math.random() > 0.5 ? '124,58,237' : '56,189,248',
+    a: Math.random() * 0.5 + 0.15
+  }));
+}
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p => {
+    p.y -= p.vy; p.x += p.vx;
+    if(p.y < -10) p.y = canvas.height + 10;
+    if(p.x < -10) p.x = canvas.width + 10;
+    if(p.x > canvas.width + 10) p.x = -10;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(${p.hue},${p.a})`;
+    ctx.fill();
+  });
+  if(!prefersReduced) requestAnimationFrame(draw);
+}
+
+if(!prefersReduced){
+  resize();
+  initParticles();
+  draw();
+  window.addEventListener('resize', () => { resize(); initParticles(); });
+}
+</script>
+
+</body>
+</html>
